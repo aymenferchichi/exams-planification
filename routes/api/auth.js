@@ -11,16 +11,41 @@ const { check, validationResult } = require("express-validator");
 // @router    Get api/auth
 // @desc      Test route
 // @access    Public
-router.get("/", auth, async (req, res) => {
-  let user = {};
+router.get("/admin", auth, async (req, res) => {
   try {
-    if (req.admin) {
-      user = await Admin.findById(req.admin.id).select("-password");
-    } else {
-      user = await Supervisor.findById(req.supervisor.id).select("-password");
-    }
+    const admin = await Admin.findById(req.admin.id).select("-password");
 
-    res.json({ user: user });
+    res.json(admin);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("server error");
+  }
+});
+
+// @router    Get api/auth
+// @desc      Test route
+// @access    Public
+router.get("/supervisor", auth, async (req, res) => {
+  try {
+    const supervisor = await Supervisor.findById(req.supervisor.id).select(
+      "-password"
+    );
+    res.json(supervisor);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("server error");
+  }
+});
+
+// @router    Get api/auth/supervisors
+// @desc      Test route
+// @access    Public
+router.get("/supervisors", auth, async (req, res) => {
+  try {
+    const supervisor = await Supervisor.find(req.supervisor).select(
+      "-password"
+    );
+    res.json(supervisor);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("server error");
@@ -68,7 +93,7 @@ router.post(
       jwt.sign(
         payload,
         config.get("jwtSecret"),
-        { expiresIn: 360000 },
+        { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err;
           res.json({ token });
@@ -123,7 +148,7 @@ router.post(
       jwt.sign(
         payload,
         config.get("jwtSecret"),
-        { expiresIn: 360000 },
+        { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err;
           res.json({ token });

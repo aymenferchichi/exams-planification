@@ -16,6 +16,7 @@ app.use("/api/exams", require("./routes/api/exams"));
 app.use("/api/group", require("./routes/api/group"));
 app.use("/api/supervisor", require("./routes/api/supervisor"));
 app.use("/api/calendar", require("./routes/api/calendar"));
+app.use("/api/reclamation", require("./routes/api/reclamation"));
 
 const PORT = process.env.PORT || 5001;
 

@@ -6,10 +6,24 @@ const CalendarSchema = mongoose.Schema({
     required: true,
   },
   Day: {
-    type: String,
+    type: Date,
+    required: true,
   },
-  Session: {
+  Group: {
     type: String,
+    required: true,
+  },
+  Exam: {
+    type: String,
+    required: true,
+  },
+  Supervisor: {
+    type: String,
+    required: true,
+  },
+  Salle: {
+    type: String,
+    required: true,
   },
 });
 

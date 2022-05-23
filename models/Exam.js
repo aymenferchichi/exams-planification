@@ -9,7 +9,7 @@ const ExamSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  Duration: {
+  Duration: { 
     type: String,
     required: true,
   },
